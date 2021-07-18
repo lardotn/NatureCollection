@@ -1,13 +1,21 @@
 package com.youtube.naturecollection.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.youtube.naturecollection.MainActivity
+import com.youtube.naturecollection.PlantModel
 import com.youtube.naturecollection.R
 
-class PlantAdapter(private val layoutId: Int) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
+class PlantAdapter(
+    private val context: MainActivity,
+    private val plantList: List<PlantModel>,
+    private val layoutId: Int
+    ) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
 
     // Boite pour ranger tous les composants à controler
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,10 +31,15 @@ class PlantAdapter(private val layoutId: Int) : RecyclerView.Adapter<PlantAdapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // Récupérer les informations de la plante
+        val currentPlant = plantList[position]
+
+        // Utiliser glide pour récupérer l'image à partir de son lien
+        Glide.with(context).load(Uri.parse(currentPlant.imageUrl)).into(holder.plantImage)
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return plantList.size
     }
 
 }

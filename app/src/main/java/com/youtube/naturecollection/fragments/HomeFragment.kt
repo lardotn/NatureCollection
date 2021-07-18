@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.youtube.naturecollection.MainActivity
 import com.youtube.naturecollection.PlantModel
 import com.youtube.naturecollection.R
 import com.youtube.naturecollection.adapter.PlantAdapter
 import com.youtube.naturecollection.adapter.PlantItemDecoration
 
-class HomeFragment : Fragment() {
+class HomeFragment(
+    private val context: MainActivity
+) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +34,11 @@ class HomeFragment : Fragment() {
 
         // Récupérer le recyclerview
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.horizontal_recycler_view)
-        horizontalRecyclerView.adapter = PlantAdapter(plantList, R.layout.item_horizontal_plant)
+        horizontalRecyclerView.adapter = PlantAdapter(context, plantList, R.layout.item_horizontal_plant)
 
         // Récupérer le second recyclerview
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
-        verticalRecyclerView.adapter = PlantAdapter(plantList, R.layout.item_vertical_plant)
+        verticalRecyclerView.adapter = PlantAdapter(context, plantList, R.layout.item_vertical_plant)
         verticalRecyclerView.addItemDecoration(PlantItemDecoration())
 
         return view
